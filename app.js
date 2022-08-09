@@ -1,21 +1,22 @@
-let Countries = ["GHANA", "ROMANIA"]
+const Countries = ["GHANA", "ROMANIA", "INDIA", "GERMANY", "CANADA"]
 
-let hangman_body = ["#head", "#right-arm", "#left-arm", "#top-body", "#bottom-body", "#right-leg", "#left-leg"]
+let body = ["#head", "#right-arm", "#left-arm", "#top-body", "#bottom-body", "#right-leg", "#left-leg"]
 
-// let hangmanKeys = Object.keys(hangman_body)
-
-
-
-let hangman = [{ "#head": "O" }, { "#right-arm": "/" }, { "#left-arm": `\\` }, { "#top-body": "|" }, { "#bottom-body": "|" },
-{"#right-leg": "/"}, {"#left-leg": "\\"}
+const hangmanSymbols = [
+    { "#head": "O" },
+    { "#right-arm": "/" },
+    { "#left-arm": `\\` },
+    { "#top-body": "|" },
+    { "#bottom-body": "|" },
+    { "#right-leg": "/" },
+    { "#left-leg": "\\" }
 ]
-// "ROMANIA", "INDIA", "GERMANY", "CANADA"
 
-let Animals = ["DOG", "CAT", "LION", "ZEBRA", "SHARK"]
+const Animals = ["DOG", "CAT", "LION", "ZEBRA", "SHARK"]
 
-let Food = ["SALAD", "CHICKEN", "CHEESE", "RICE", "BREAD"]
+const Food = ["SALAD", "CHICKEN", "CHEESE", "RICE", "BREAD"]
 
-let Hint = {
+const Hint = {
     "GHANA": "Second-largest producer of gold in Africa.",
     "ROMANIA": "It's home to the world's heaviest building.",
     "INDIA": "Cows are considered sacred",
@@ -37,25 +38,27 @@ let categoryClicked = false
 
 let difficultyClicked = false
 
-let clickablesActive = false
+let letterBoardActive = false
+
+let categorySelectedIndex = 0
+
+let lives = 7
+
+let hangManBodyIndex = -1
+
+let livesToStr = lives.toString()
+
+let clickedLetters = []
 
 let catergorySelected
 
-let catergoryNumSelected
+let catergoryIndexSelected
 
 let difficultySelected
 
-let difficultyNumSelected
+let difficultyIndexSelected
 
-let increment = 0
-
-let strs 
-
-let lives = 7
-let hangIndex = -1
-let numToStr = lives.toString()
-
-let clickedLetters = []
+let wordToBeCompleted 
 
 let input 
 
@@ -81,18 +84,15 @@ for (let i = 0; i < document.querySelectorAll(".buttonCategory").length; i++){
                 catergorySelected = Food
             }
 
-            // catergorySelected = Countries
-
-            // catergorySelected = e.target.textContent
             categoryClicked = true
-            catergoryNumSelected = i
+            catergoryIndexSelected = i
             document.querySelector("#header-text").textContent = "Select Difficulty"
             document.querySelectorAll(".buttonCategory")[i].classList.remove("btn-warning")
             document.querySelectorAll(".buttonCategory")[i].classList.add("btn-outline-warning")
             document.querySelector(".categories").classList.add("disable")
 
             
-            strs = catergorySelected[increment]
+            wordToBeCompleted = catergorySelected[categorySelectedIndex]
         }
       
     })
@@ -107,40 +107,40 @@ for (let i = 0; i < document.querySelectorAll(".buttonDifficulty").length; i++) 
             if (i == 0) {
                 difficultySelected = e.target.textContent
                 difficultyClicked = true
-                difficultyNumSelected = i
+                difficultyIndexSelected = i
                 document.querySelector("#header-text").textContent = "The Game Begins Click Reset To Change Difficulty Or Category"
                 document.querySelectorAll(".buttonDifficulty")[i].classList.remove("btn-success")
                 document.querySelectorAll(".buttonDifficulty")[i].classList.add("btn-outline-success")
                 document.querySelector(".difficulty").classList.add("disable")
-                clickablesActive = true
-                let numToStr = lives.toString()
-                document.querySelector("#countdown").textContent = numToStr
+                letterBoarActived = true
+                let livesToStr = lives.toString()
+                document.querySelector("#countdown").textContent = livesToStr
                 input = inputField()
                 fillInp = fillInput(input)
                 document.querySelector(".fieldInput").textContent = fillInp
-                document.querySelector(".progression").innerHTML = `<h1>${increment.toString()}/${catergorySelected.length.toString()}</h1>`
+                document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
 
-                for (let i = 0; i < hangman_body.length; i++){
-                    document.querySelector(hangman_body[i]).textContent = ""
+                for (let i = 0; i < body.length; i++){
+                    document.querySelector(body[i]).textContent = ""
                 }
                 
             } else {
                 difficultySelected = e.target.textContent
                 difficultyClicked = true
-                difficultyNumSelected = i
+                difficultyIndexSelected = i
                 document.querySelector("#header-text").textContent = "The Game Begins Click Reset To Change Difficulty Or Category"
                 document.querySelectorAll(".buttonDifficulty")[i].classList.remove("btn-danger")
                 document.querySelectorAll(".buttonDifficulty")[i].classList.add("btn-outline-danger")
                 document.querySelector(".difficulty").classList.add("disable")
-                clickablesActive = true
-                document.querySelector("#countdown").textContent = numToStr
+                letterBoarActived = true
+                document.querySelector("#countdown").textContent = livesToStr
                 input = inputField()
                 fillInp = fillInput(input)
                 console.log(input)
                 document.querySelector(".fieldInput").textContent = fillInp
-                document.querySelector(".progression").innerHTML = `<h1>${increment.toString()}/${catergorySelected.length.toString()}</h1>`
-                for (let i = 0; i < hangman_body.length; i++){
-                    document.querySelector(hangman_body[i]).textContent = ""
+                document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
+                for (let i = 0; i < body.length; i++){
+                    document.querySelector(body[i]).textContent = ""
                 }
                 
             }
@@ -155,7 +155,7 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
 
     
     document.querySelectorAll(".player-clickable-alphabets")[i].addEventListener("click", function (e) {
-        if (clickablesActive) {
+        if (letterBoarActived) {
             if (difficultySelected == "Easy") {
 
             if (e.target.textContent == "") {
@@ -163,7 +163,7 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
                 
             } else {
                     
-                if (strs.includes(e.target.textContent) && clickedLetters.includes(e.target.textContent) == false) {
+                if (wordToBeCompleted.includes(e.target.textContent) && clickedLetters.includes(e.target.textContent) == false) {
                     playAsound("right")
                     document.querySelectorAll(".rightOrWrong")[i].classList.add("green")
 
@@ -176,16 +176,16 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
                     
                     
                     if (replace.includes("_") == false) {
-                        for (let i = 0; i < hangman_body.length; i++){
-                            document.querySelector(hangman_body[i]).textContent = ""
+                        for (let i = 0; i < body.length; i++){
+                            document.querySelector(body[i]).textContent = ""
                         }
                         lives = 7
-                        increment++
-                        hangIndex = -1
-                        numToStr = lives.toString()
-                        document.querySelector("#countdown").textContent = numToStr
-                        if (increment < catergorySelected.length) {
-                            strs = catergorySelected[increment]
+                        categorySelectedIndex++
+                        hangManBodyIndex = -1
+                        livesToStr = lives.toString()
+                        document.querySelector("#countdown").textContent = livesToStr
+                        if (categorySelectedIndex < catergorySelected.length) {
+                            wordToBeCompleted = catergorySelected[categorySelectedIndex]
                             input = inputField()
                             fillInp = fillInput(input)
                             console.log(input)
@@ -206,141 +206,40 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
                             }
 
                             clickedLetters = []
-                            document.querySelector(".progression").innerHTML = `<h1>${increment.toString()}/${catergorySelected.length.toString()}</h1>`
+                            document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
 
                         } else {
-                            document.querySelector(".progression").innerHTML = `<h1>${increment.toString()}/${catergorySelected.length.toString()}</h1>`
+                            document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
 
                             document.querySelector("#hintField").textContent = "You have Completed Every Word Click Reset"
-                            clickablesActive = false
+                            letterBoarActived = false
                         }
                     }
                     
                 }
-                else if (clickedLetters.includes(e.target.textContent) == false && strs.includes(e.target.textContent) == false) {
+                else if (clickedLetters.includes(e.target.textContent) == false && wordToBeCompleted.includes(e.target.textContent) == false) {
                     playAsound("wrong")
                     document.querySelectorAll(".rightOrWrong")[i].classList.add("red")
                     lives -= 1
-                    hangIndex += 1
-                    numToStr = lives.toString()
+                    hangManBodyIndex += 1
+                    livesToStr = lives.toString()
                     
-                    document.querySelector(hangman_body[hangIndex]).textContent = hangman[hangIndex][hangman_body[hangIndex]]
+                    document.querySelector(body[hangManBodyIndex]).textContent = hangmanSymbols[hangManBodyIndex][body[hangManBodyIndex]]
 
                      
                     clickedLetters.push(e.target.textContent)
                     document.querySelectorAll(".player-clickable-alphabets")[i].classList.add("disable")
                      
-                    document.querySelector("#countdown").textContent = numToStr
+                    document.querySelector("#countdown").textContent = livesToStr
                     if (lives == 0) {
-                        clickablesActive = false
+                        letterBoarActived = false
                         document.querySelector("#hintField").textContent = "You have run out of lives Click Reset To Start Over"
                     }
 
                 }
                 
             }
-
-
-
-
-
-            // if (clickablesActive == true) {
-            //     if (replace.includes("_") == false) {
-            //         increment++
-            //         if (increment < catergorySelected.length) {
-            //             setTimeout(function() {
-                    
-            //                 strs = catergorySelected[increment]
-            //                 input = inputField()
-            //                 fillInp = fillInput(input)
-            //                 console.log(input)
-            //                 document.querySelector(".fieldInput").textContent = fillInp
-        
-            //                 for (let i = 0; i < document.querySelectorAll(".rightOrWrong").length; i++){
-            //                     if (document.querySelectorAll(".rightOrWrong")[i].classList.contains("red")) {
-            //                         document.querySelectorAll(".rightOrWrong")[i].classList.remove("red")
-            //                     } else {
-            //                         document.querySelectorAll(".rightOrWrong")[i].classList.remove("green")
-        
-            //                     }
-            //                 }
-    
-            //                 for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").length; i++){
-            //                     document.querySelectorAll(".player-clickable-alphabets")[i].classList.remove("disable")
-    
-            //                 }
-            //                 clickedLetters =[]
-            //               }, 1000)
-            //         } else {
-
-            //             setTimeout(function () {
-            //                 document.querySelector("#hintField").textContent = "You have Completed Every Word Click Reset"
-            //                 clickablesActive = false
-            //             }, 1000)
-            //         }
-            //     }
-            // }
-
-
-
-
-
-            
-            // if (clickablesActive == true && replace.includes("_") == false) {
-            //     increment++
-
-            //     if (increment < catergorySelected.length) {
-            //         // increment++
-            //         // if (increment == catergorySelected.length + 1) {
-            //         //     setTimeout(function () {
-            //         //         document.querySelector("#hintField").textContent = "You have Completed Every Word Click Reset"
-            //         //         clickablesActive = false
-            //         //     }, 1000)
-            //         // }
-            //         setTimeout(function() {
-                    
-            //             strs = catergorySelected[increment]
-            //             input = inputField()
-            //             fillInp = fillInput(input)
-            //             console.log(input)
-            //             document.querySelector(".fieldInput").textContent = fillInp
-    
-            //             for (let i = 0; i < document.querySelectorAll(".rightOrWrong").length; i++){
-            //                 if (document.querySelectorAll(".rightOrWrong")[i].classList.contains("red")) {
-            //                     document.querySelectorAll(".rightOrWrong")[i].classList.remove("red")
-            //                 } else {
-            //                     document.querySelectorAll(".rightOrWrong")[i].classList.remove("green")
-    
-            //                 }
-            //             }
-
-            //             for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").length; i++){
-            //                 document.querySelectorAll(".player-clickable-alphabets")[i].classList.remove("disable")
-
-            //             }
-            //             clickedLetters =[]
-            //           }, 1000)
-            //     } else if (increment == catergorySelected.length) {
-            //         setTimeout(function () {
-            //                     document.querySelector("#hintField").textContent = "You have Completed Every Word Click Reset"
-            //                     clickablesActive = false
-            //                 }, 1000)
-            //     }
-            //     //  else {
-            //     //     setTimeout(function () {
-            //     //         document.querySelector("#hintField").textContent = "You have Completed Every Word Click Reset"
-            //     //         clickablesActive = false
-            //     //     }, 1000)
-                 
-            //     // }
-             
-               
-            // }
-            
-
-           
-            console.log(e.target.textContent)
-            
+                       
         }
         else {
                 if (e.target.textContent == "") {
@@ -348,7 +247,7 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
                     
                 } else {
                         
-                    if (strs.includes(e.target.textContent) && clickedLetters.includes(e.target.textContent) == false) {
+                    if (wordToBeCompleted.includes(e.target.textContent) && clickedLetters.includes(e.target.textContent) == false) {
                         playAsound("right")
                         document.querySelectorAll(".rightOrWrong")[i].classList.add("green")
     
@@ -361,9 +260,9 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
                         
                         
                         if (replace.includes("_") == false) {
-                            increment++
-                            if (increment < catergorySelected.length) {
-                                strs = catergorySelected[increment]
+                            categorySelectedIndex++
+                            if (categorySelectedIndex < catergorySelected.length) {
+                                wordToBeCompleted = catergorySelected[categorySelectedIndex]
                                 input = inputField()
                                 fillInp = fillInput(input)
                                 console.log(input)
@@ -384,138 +283,39 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
                                 }
     
                                 clickedLetters = []
-                                document.querySelector(".progression").innerHTML = `<h1>${increment.toString()}/${catergorySelected.length.toString()}</h1>`
+                                document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
     
                             } else {
-                                document.querySelector(".progression").innerHTML = `<h1>${increment.toString()}/${catergorySelected.length.toString()}</h1>`
+                                document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
     
                                 document.querySelector("#hintField").textContent = "You have Completed Every Word Click Reset"
-                                clickablesActive = false
+                                letterBoarActived = false
                             }
                         }
                         
                     }
-                    else if (clickedLetters.includes(e.target.textContent) == false && strs.includes(e.target.textContent) == false) {
+                    else if (clickedLetters.includes(e.target.textContent) == false && wordToBeCompleted.includes(e.target.textContent) == false) {
                         playAsound("wrong")
                         document.querySelectorAll(".rightOrWrong")[i].classList.add("red")
                         lives -= 1
-                        hangIndex += 1
-                        numToStr = lives.toString()
+                        hangManBodyIndex += 1
+                        livesToStr = lives.toString()
                         
-                        document.querySelector(hangman_body[hangIndex]).textContent = hangman[hangIndex][hangman_body[hangIndex]]
+                        document.querySelector(body[hangManBodyIndex]).textContent = hangmanSymbols[hangManBodyIndex][body[hangManBodyIndex]]
     
                          
                         clickedLetters.push(e.target.textContent)
                         document.querySelectorAll(".player-clickable-alphabets")[i].classList.add("disable")
                          
-                        document.querySelector("#countdown").textContent = numToStr
+                        document.querySelector("#countdown").textContent = livesToStr
                         if (lives == 0) {
-                            clickablesActive = false
+                            letterBoarActived = false
                             document.querySelector("#hintField").textContent = "You have run out of lives Click Reset To Start Over"
                         }
     
                     }
                     
-                }
-    
-    
-    
-    
-    
-                // if (clickablesActive == true) {
-                //     if (replace.includes("_") == false) {
-                //         increment++
-                //         if (increment < catergorySelected.length) {
-                //             setTimeout(function() {
-                        
-                //                 strs = catergorySelected[increment]
-                //                 input = inputField()
-                //                 fillInp = fillInput(input)
-                //                 console.log(input)
-                //                 document.querySelector(".fieldInput").textContent = fillInp
-            
-                //                 for (let i = 0; i < document.querySelectorAll(".rightOrWrong").length; i++){
-                //                     if (document.querySelectorAll(".rightOrWrong")[i].classList.contains("red")) {
-                //                         document.querySelectorAll(".rightOrWrong")[i].classList.remove("red")
-                //                     } else {
-                //                         document.querySelectorAll(".rightOrWrong")[i].classList.remove("green")
-            
-                //                     }
-                //                 }
-        
-                //                 for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").length; i++){
-                //                     document.querySelectorAll(".player-clickable-alphabets")[i].classList.remove("disable")
-        
-                //                 }
-                //                 clickedLetters =[]
-                //               }, 1000)
-                //         } else {
-    
-                //             setTimeout(function () {
-                //                 document.querySelector("#hintField").textContent = "You have Completed Every Word Click Reset"
-                //                 clickablesActive = false
-                //             }, 1000)
-                //         }
-                //     }
-                // }
-    
-    
-    
-    
-    
-                
-                // if (clickablesActive == true && replace.includes("_") == false) {
-                //     increment++
-    
-                //     if (increment < catergorySelected.length) {
-                //         // increment++
-                //         // if (increment == catergorySelected.length + 1) {
-                //         //     setTimeout(function () {
-                //         //         document.querySelector("#hintField").textContent = "You have Completed Every Word Click Reset"
-                //         //         clickablesActive = false
-                //         //     }, 1000)
-                //         // }
-                //         setTimeout(function() {
-                        
-                //             strs = catergorySelected[increment]
-                //             input = inputField()
-                //             fillInp = fillInput(input)
-                //             console.log(input)
-                //             document.querySelector(".fieldInput").textContent = fillInp
-        
-                //             for (let i = 0; i < document.querySelectorAll(".rightOrWrong").length; i++){
-                //                 if (document.querySelectorAll(".rightOrWrong")[i].classList.contains("red")) {
-                //                     document.querySelectorAll(".rightOrWrong")[i].classList.remove("red")
-                //                 } else {
-                //                     document.querySelectorAll(".rightOrWrong")[i].classList.remove("green")
-        
-                //                 }
-                //             }
-    
-                //             for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").length; i++){
-                //                 document.querySelectorAll(".player-clickable-alphabets")[i].classList.remove("disable")
-    
-                //             }
-                //             clickedLetters =[]
-                //           }, 1000)
-                //     } else if (increment == catergorySelected.length) {
-                //         setTimeout(function () {
-                //                     document.querySelector("#hintField").textContent = "You have Completed Every Word Click Reset"
-                //                     clickablesActive = false
-                //                 }, 1000)
-                //     }
-                //     //  else {
-                //     //     setTimeout(function () {
-                //     //         document.querySelector("#hintField").textContent = "You have Completed Every Word Click Reset"
-                //     //         clickablesActive = false
-                //     //     }, 1000)
-                     
-                //     // }
-                 
-                   
-                // }
-                
-    
+                }    
                 
         }
 
@@ -525,7 +325,7 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
 
 document.querySelector(".Hint-button").addEventListener("click", function (e) {
     console.log(e.target.textContent)
-     hint = Hint[strs]
+     hint = Hint[wordToBeCompleted]
     if(hint) {
         document.querySelector("#hintField").textContent = hint
 
@@ -538,18 +338,18 @@ document.querySelector(".reest").addEventListener("click", function (e) {
     console.log(e.target.textContent)
     categoryClicked = false
     difficultyClicked = false
-    clickablesActive = false
-    if (difficultyNumSelected == 0) {
-        document.querySelectorAll(".buttonDifficulty")[difficultyNumSelected].classList.add("btn-success")
-        document.querySelectorAll(".buttonDifficulty")[difficultyNumSelected].classList.remove("btn-outline-success")
+    letterBoarActived = false
+    if (difficultyIndexSelected == 0) {
+        document.querySelectorAll(".buttonDifficulty")[difficultyIndexSelected].classList.add("btn-success")
+        document.querySelectorAll(".buttonDifficulty")[difficultyIndexSelected].classList.remove("btn-outline-success")
         
     } else {
-        document.querySelectorAll(".buttonDifficulty")[difficultyNumSelected].classList.add("btn-danger")
-        document.querySelectorAll(".buttonDifficulty")[difficultyNumSelected].classList.remove("btn-outline-danger")
+        document.querySelectorAll(".buttonDifficulty")[difficultyIndexSelected].classList.add("btn-danger")
+        document.querySelectorAll(".buttonDifficulty")[difficultyIndexSelected].classList.remove("btn-outline-danger")
     }
     document.querySelector("#header-text").textContent = "Select A category"
-    document.querySelectorAll(".buttonCategory")[catergoryNumSelected].classList.add("btn-warning")
-    document.querySelectorAll(".buttonCategory")[catergoryNumSelected].classList.remove("btn-outline-warning")
+    document.querySelectorAll(".buttonCategory")[catergoryIndexSelected].classList.add("btn-warning")
+    document.querySelectorAll(".buttonCategory")[catergoryIndexSelected].classList.remove("btn-outline-warning")
     document.querySelector(".categories").classList.remove("disable")
     document.querySelector(".difficulty").classList.remove("disable")
     // lives = 6
@@ -572,14 +372,14 @@ document.querySelector(".reest").addEventListener("click", function (e) {
 
     }
 
-    increment = 0
+    categorySelectedIndex = 0
     document.querySelector(".progression").innerHTML = `<h1>0/0</h1>`
     document.querySelector(".fieldInput").textContent = "_ _ _ _ _ _ _"
 
     lives = 7
-    numToStr = lives.toString()
-    document.querySelector("#countdown").textContent = numToStr
-    hangIndex = -1
+    livesToStr = lives.toString()
+    document.querySelector("#countdown").textContent = livesToStr
+    hangManBodyIndex = -1
 
     // catergorySelected = 
     // strs = Countries[increment]
@@ -590,7 +390,7 @@ document.querySelector(".reest").addEventListener("click", function (e) {
 function inputField() {
 
     let inputField =[]
-    for (let i = 0; i < strs.length; i++){
+    for (let i = 0; i < wordToBeCompleted.length; i++){
         inputField.push("_ ")
     }
 
@@ -614,8 +414,8 @@ function checkField(letterPassed) {
    
     console.log(letterPassed)
 
-    for (let i = 0; i < strs.length; i++){
-        if (letterPassed == strs[i]) {
+    for (let i = 0; i < wordToBeCompleted.length; i++){
+        if (letterPassed == wordToBeCompleted[i]) {
             input[i] = letterPassed
         }
     }
@@ -631,44 +431,9 @@ function checkField(letterPassed) {
     return str
 }
 
-function playAsound(ans) {
+function playAsound(rightOrWrong) {
 
-    var audio = new Audio("/Sound-Effects/" + ans + ".wav");
+    var audio = new Audio("./Sound-Effects/" + rightOrWrong + ".wav");
     audio.play();
     
 }
-
-// if (!categoryClicked && !difficultyClicked) {
-//     document.querySelector("#header-text").textContent = "Select A Category"
-
-   
-
-      
-// }
-
-// if (categoryClicked == true && difficultyClicked == false) {
-
-//     for (let i = 0; i < document.querySelectorAll(".select-difficulty").length; i++) {
-
-//         document.querySelectorAll(".select-difficulty")[i].addEventListener("click", function (e) {
-//             difficultySelected = e.target.textContent
-//             difficultyClicked = true
-//             document.querySelector("#header-text").textContent = "The Game Begins"
-
-//         })
-
-//     }
-    
-
-// }
-
-// function callMe() {
-//     if (categoryClicked && !difficultyClicked) {
-//         document.querySelector("#header-text").textContent = "Select A Difficulty"
-    
-//     }
-// }
-
-
-
-
