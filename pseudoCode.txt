@@ -1,0 +1,38 @@
+
+1) My game will hold 6 divs in total
+    1) the first div holds an h1 tag. The text in the h1 
+    will changes based 
+    on the stage the player is in within the game.
+    2) the second div holds buttons of categories player can select 
+    to start the game
+    3) the third div holds 2 inner divs. One inner div 
+    will contain a grid in which the hanged man will 
+    be placed in. The second inner div holds a
+    countdown of lives the player has. The second inner div 
+    will also hold
+    a grid of letters, and depending on the letters the player
+    selects in div 5 the background of the letters in div 3 will change to
+    red or green
+    4) the fourth div holds a field of 
+    letters selected by the player, it will also 
+    contain a hint button.
+    5) the 5th div holds a character of letters placed in 
+    a grid in which the player can select
+    6) the 6th div holds a reset button
+
+
+2) Dependng on the stage player is in the text in the frist div will change.
+if player just got on page it will read, choose a category below to start
+if player already selected a catergory, it will read category has already been chosen, click reset to restart the game
+when player clicks hints it will read a hint
+if player has already selected a letter in the 4th div it will read "letter" has already been selected
+
+3) second div hold 3 clickable seperate buttons of categories each with 10 hints and answers.
+
+4) 3rd div holds the hangman which adds body part depending on the llives you have in the second div in the 3rd div
+
+5) input field hint button, and a disspapearing h2 tag depending on the questions you have remaining
+
+6) 5th div holds  clickable letters. once you have seelcted a letter it becomes unabailable unitl the next question
+
+7) last div holds a reset button

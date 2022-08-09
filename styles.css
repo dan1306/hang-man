@@ -1,0 +1,200 @@
+.alphabet-grid{
+    border: 2px solid black;
+    height: auto;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    background-color: #FCF8E8;
+    padding: 10px;
+}
+
+body{
+    
+    /* background-image: url("backgroud-image/sunset-gd7fc12fea_1920.jpg"); */
+    /* background-color: #cccccc; */
+      
+}
+
+.shadow{
+}
+
+.disable{
+    pointer-events: none;
+}
+
+.hangedMan-life-container{
+    height: auto;
+    border: 2px solid black;
+    
+
+}
+
+.hangedMan-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    /* padding: 0px; */
+}
+
+.hangedMan-item, .hangedMan-item3 {
+    background-color: rgba(255, 255, 255, 0.8);
+    /* border: 1px solid rgba(0, 0, 0, 0.8); */
+    /* padding: 20px; */
+    font-size: 30px;
+    text-align: center;
+}
+
+.hangedMan-item1 {
+    background-color: rgba(255, 255, 255, 0.8);
+    /* border: 1px solid rgba(0, 0, 0, 0.8); */
+    /* padding: 20px; */
+    font-size: 30px;
+    text-align: right;
+    /* padding-left: 100px; */
+}
+
+.hangedMan-item2 {
+    background-color: rgba(255, 255, 255, 0.8);
+    /* border: 1px solid rgba(0, 0, 0, 0.8); */
+    /* padding: 20px; */
+    font-size: 30px;
+    text-align: left;
+    /* padding-right: 350px; */
+    /* position: relative;
+    right: 30px; */
+}
+
+
+.green{
+    background-color: green;
+}
+
+.red{
+    background-color: red;
+}
+
+.Hint-and-playerChoices{
+    border: 2px solid black;
+    height: 40px;
+    padding-top: 5px;
+    padding-bottom: 50px;
+}
+
+.lifeCount{
+    position: relative;
+    top: 60px
+    
+}
+
+/* .main-div{
+    border: 2px solid red;
+    padding: 20px;
+    
+} */
+
+@media (min-width: 1200px) {
+    .hangedMan-item2{
+          position: relative;
+        right: 50px;
+    }
+
+    .hangedMan-item1{
+        position: relative;
+        left: 50px;
+    }
+}
+
+.player-clickable-alphabets{
+    background-color: rgba(67, 186, 213, 0.8);
+    border: 3px solid rgba(0, 0, 0, 0.8);
+    /* padding: 20px; */
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.player-clickable-alphabets:hover{
+    background-color: white
+}
+
+#resetButton-div{
+    /* height: 20px; */
+    padding: 10px
+}
+
+.rightOrWrong{
+    /* background-color: white; */
+    border: 3px solid rgba(0, 0, 0, 0.8);
+    /* padding: 20px; */
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.rows{
+    border: 1px solid black;
+
+}
+
+.select-category{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.select-difficulty{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+  
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.a{
+    border-left: 2px solid black;
+    /* background-image: url("/backgroud-image//dry-856544_1920.jpg") */
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Player selects alphabets */
+
+
+
+/* Button Div Style */
+
