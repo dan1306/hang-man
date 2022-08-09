@@ -16,7 +16,7 @@ const Animals = ["DOG", "CAT", "LION", "ZEBRA", "SHARK"]
 
 const Food = ["SALAD", "CHICKEN", "CHEESE", "RICE", "BREAD"]
 
-const Hint = {
+const aClue = {
     "GHANA": "Second-largest producer of gold in Africa.",
     "ROMANIA": "It's home to the world's heaviest building.",
     "INDIA": "Cows are considered sacred",
@@ -60,11 +60,11 @@ let difficultyIndexSelected
 
 let wordToBeCompleted 
 
-let input 
+let wordArray 
 
-let fillInp
+let word_field
 
-let replace
+let rightPlayerInputs
 
 let hint
 
@@ -113,11 +113,11 @@ for (let i = 0; i < document.querySelectorAll(".buttonDifficulty").length; i++) 
                 document.querySelectorAll(".buttonDifficulty")[i].classList.add("btn-outline-success")
                 document.querySelector(".difficulty").classList.add("disable")
                 letterBoarActived = true
-                let livesToStr = lives.toString()
+                livesToStr = lives.toString()
                 document.querySelector("#countdown").textContent = livesToStr
-                input = inputField()
-                fillInp = fillInput(input)
-                document.querySelector(".fieldInput").textContent = fillInp
+                wordArray = fillsWordArray()
+                word_field = fillWordField(wordArray)
+                document.querySelector(".fieldInput").textContent = word_field
                 document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
 
                 for (let i = 0; i < body.length; i++){
@@ -134,10 +134,10 @@ for (let i = 0; i < document.querySelectorAll(".buttonDifficulty").length; i++) 
                 document.querySelector(".difficulty").classList.add("disable")
                 letterBoarActived = true
                 document.querySelector("#countdown").textContent = livesToStr
-                input = inputField()
-                fillInp = fillInput(input)
-                console.log(input)
-                document.querySelector(".fieldInput").textContent = fillInp
+                wordArray = fillsWordArray()
+                word_field = fillWordField(wordArray)
+                console.log(wordArray)
+                document.querySelector(".fieldInput").textContent = word_field
                 document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
                 for (let i = 0; i < body.length; i++){
                     document.querySelector(body[i]).textContent = ""
@@ -171,11 +171,11 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
                     document.querySelectorAll(".player-clickable-alphabets")[i].classList.add("disable")
 
 
-                    replace = checkField(e.target.textContent)
-                    document.querySelector(".fieldInput").textContent = replace
+                    rightPlayerInputs = checkPlayerInput(e.target.textContent)
+                    document.querySelector(".fieldInput").textContent = rightPlayerInputs
                     
                     
-                    if (replace.includes("_") == false) {
+                    if (rightPlayerInputs.includes("_") == false) {
                         for (let i = 0; i < body.length; i++){
                             document.querySelector(body[i]).textContent = ""
                         }
@@ -186,10 +186,10 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
                         document.querySelector("#countdown").textContent = livesToStr
                         if (categorySelectedIndex < catergorySelected.length) {
                             wordToBeCompleted = catergorySelected[categorySelectedIndex]
-                            input = inputField()
-                            fillInp = fillInput(input)
-                            console.log(input)
-                            document.querySelector(".fieldInput").textContent = fillInp
+                            wordArray = fillsWordArray()
+                            word_field = fillWordField(wordArray)
+                            console.log(wordArray)
+                            document.querySelector(".fieldInput").textContent = word_field
         
                             for (let i = 0; i < document.querySelectorAll(".rightOrWrong").length; i++) {
                                 if (document.querySelectorAll(".rightOrWrong")[i].classList.contains("red")) {
@@ -255,18 +255,18 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
                         document.querySelectorAll(".player-clickable-alphabets")[i].classList.add("disable")
     
     
-                        replace = checkField(e.target.textContent)
-                        document.querySelector(".fieldInput").textContent = replace
+                        rightPlayerInputs = checkPlayerInput(e.target.textContent)
+                        document.querySelector(".fieldInput").textContent = rightPlayerInputs
                         
                         
-                        if (replace.includes("_") == false) {
+                        if (rightPlayerInputs.includes("_") == false) {
                             categorySelectedIndex++
                             if (categorySelectedIndex < catergorySelected.length) {
                                 wordToBeCompleted = catergorySelected[categorySelectedIndex]
-                                input = inputField()
-                                fillInp = fillInput(input)
-                                console.log(input)
-                                document.querySelector(".fieldInput").textContent = fillInp
+                                wordArray = fillsWordArray()
+                                word_field = fillWordField(wordArray)
+                                console.log(wordArray)
+                                document.querySelector(".fieldInput").textContent = word_field
             
                                 for (let i = 0; i < document.querySelectorAll(".rightOrWrong").length; i++) {
                                     if (document.querySelectorAll(".rightOrWrong")[i].classList.contains("red")) {
@@ -325,7 +325,7 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
 
 document.querySelector(".Hint-button").addEventListener("click", function (e) {
     console.log(e.target.textContent)
-     hint = Hint[wordToBeCompleted]
+     hint = aClue[wordToBeCompleted]
     if(hint) {
         document.querySelector("#hintField").textContent = hint
 
@@ -387,48 +387,46 @@ document.querySelector(".reest").addEventListener("click", function (e) {
 
 })
 
-function inputField() {
+function fillsWordArray() {
 
-    let inputField =[]
+    let arr =[]
     for (let i = 0; i < wordToBeCompleted.length; i++){
-        inputField.push("_ ")
+        arr.push("_ ")
     }
 
-    return inputField
+    return arr
 }
 
-function fillInput(arr) {
+function fillWordField(arr) {
 
-    let str = ""
+    let dashes = ""
 
     for (let i = 0; i < arr.length; i++){
-        str += arr[i]
+        dashes += arr[i]
     }
 
-    return str
+    return dashes
     
 }
 
-function checkField(letterPassed) {
+function checkPlayerInput(letterPassed) {
 
    
     console.log(letterPassed)
 
     for (let i = 0; i < wordToBeCompleted.length; i++){
         if (letterPassed == wordToBeCompleted[i]) {
-            input[i] = letterPassed
+            wordArray[i] = letterPassed
         }
     }
 
-    let str = ""
+    let dashOrLetter = ""
     
-    for (let i = 0; i < input.length; i++){
-        str += input[i] + " "
+    for (let i = 0; i < wordArray.length; i++){
+        dashOrLetter += wordArray[i] + " "
     }
-
-    console.log(str)
     
-    return str
+    return dashOrLetter
 }
 
 function playAsound(rightOrWrong) {
