@@ -37,7 +37,7 @@ const aClue = {
   "SHARK": "Do not have bones.",
   "SALAD": "Combination of vegies with hard bread and ceaser dressing.",
   "CHEESE": "Over 2000 varieties",
-  "CHCIKEN": "Able to distinguish colours.",
+  "CHICKEN": "Able to distinguish colours.",
   "RICE": "Good for years.",
   "BREAD": "99% of UK household buy it.",
 };
