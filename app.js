@@ -3,13 +3,21 @@ const Countries = ["GHANA", "ROMANIA", "INDIA", "GERMANY", "CANADA"]
 let body = ["#head", "#right-arm", "#left-arm", "#top-body", "#bottom-body", "#right-leg", "#left-leg"]
 
 const hangmanSymbols = [
+
     { "#head": "O" },
+
     { "#right-arm": "/" },
+
     { "#left-arm": `\\` },
+
     { "#top-body": "|" },
+
     { "#bottom-body": "|" },
+
     { "#right-leg": "/" },
+
     { "#left-leg": "\\" }
+  
 ]
 
 const Animals = ["DOG", "CAT", "LION", "ZEBRA", "SHARK"]
@@ -17,21 +25,37 @@ const Animals = ["DOG", "CAT", "LION", "ZEBRA", "SHARK"]
 const Food = ["SALAD", "CHICKEN", "CHEESE", "RICE", "BREAD"]
 
 const aClue = {
+
     "GHANA": "Second-largest producer of gold in Africa.",
+
     "ROMANIA": "It's home to the world's heaviest building.",
+
     "INDIA": "Cows are considered sacred",
+
     "GERMANY": "Has 1,000 Varieties of Sausages!",
+
     "CANADA": "Has 20% of the world's fresh water.",
+
     "DOG": 'a',
+
     "CAT": "b",
+
     "LION": "c",
+
     "ZEBRA": "d",
+
     "SHARK": "e",
+
     "SALAD": "f",
+
     "CHEESE": "g",
+
     "Cheese": "h",
+
     "RICE": "i",
+
     "BREAD": "j"
+
 }
 
 let categoryClicked = false
@@ -73,25 +97,37 @@ let hint
 for (let i = 0; i < document.querySelectorAll(".buttonCategory").length; i++){
 
     document.querySelectorAll(".buttonCategory")[i].addEventListener("click", function (e) {
+
         if (!categoryClicked && !difficultyClicked) {
+
             console.log(e.target.textContent)
 
             if (e.target.textContent == "Countries") {
+
                 catergorySelected = Countries
+
             } else if (e.target.textContent == "Animals") {
+
                 catergorySelected = Animals
+
             } else {
+
                 catergorySelected = Food
+
             }
 
             categoryClicked = true
+
             catergoryIndexSelected = i
+
             document.querySelector("#header-text").textContent = "Select Difficulty"
+
             document.querySelectorAll(".buttonCategory")[i].classList.remove("btn-warning")
+
             document.querySelectorAll(".buttonCategory")[i].classList.add("btn-outline-warning")
+
             document.querySelector(".categories").classList.add("disable")
 
-            
             wordToBeCompleted = catergorySelected[categorySelectedIndex]
         }
       
@@ -101,53 +137,14 @@ for (let i = 0; i < document.querySelectorAll(".buttonCategory").length; i++){
 
 for (let i = 0; i < document.querySelectorAll(".buttonDifficulty").length; i++) {
 
-    document.querySelectorAll(".buttonDifficulty")[i].addEventListener("click", function (e) {      
+    document.querySelectorAll(".buttonDifficulty")[i].addEventListener("click", function (e) {   
+        
         if (categoryClicked && !difficultyClicked) {
 
             passDifficultyIndex(i, e)
-
-            // if (i == 0) {
-            //     difficultySelected = e.target.textContent
-            //     difficultyClicked = true
-            //     difficultyIndexSelected = i
-            //     document.querySelector("#header-text").textContent = "The Game Begins Click Reset To Change Difficulty Or Category"
-            //     document.querySelectorAll(".buttonDifficulty")[i].classList.remove("btn-success")
-            //     document.querySelectorAll(".buttonDifficulty")[i].classList.add("btn-outline-success")
-            //     document.querySelector(".difficulty").classList.add("disable")
-            //     letterBoarActived = true
-            //     document.querySelector("#countdown").textContent = livesToStr
-            //     wordArray = fillsWordArray()
-            //     word_field = fillWordField(wordArray)
-            //     document.querySelector(".fieldInput").textContent = word_field
-            //     document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
-
-            //     for (let i = 0; i < body.length; i++){
-            //         document.querySelector(body[i]).textContent = ""
-            //     }
-                
-            // } else {
-            //     difficultySelected = e.target.textContent
-            //     difficultyClicked = true
-            //     difficultyIndexSelected = i
-            //     document.querySelector("#header-text").textContent = "The Game Begins Click Reset To Change Difficulty Or Category"
-            //     document.querySelectorAll(".buttonDifficulty")[i].classList.remove("btn-danger")
-            //     document.querySelectorAll(".buttonDifficulty")[i].classList.add("btn-outline-danger")
-            //     document.querySelector(".difficulty").classList.add("disable")
-            //     letterBoarActived = true
-            //     document.querySelector("#countdown").textContent = livesToStr
-            //     wordArray = fillsWordArray()
-            //     word_field = fillWordField(wordArray)
-            //     console.log(wordArray)
-            //     document.querySelector(".fieldInput").textContent = word_field
-            //     document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
-            //     for (let i = 0; i < body.length; i++){
-            //         document.querySelector(body[i]).textContent = ""
-            //     }
-                
-            // }
-                
-             
+                   
         }
+
     })
          
 }
@@ -164,19 +161,26 @@ for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").len
         }
 
     })
+
 }
 
 document.querySelector(".Hint-button").addEventListener("click", function (e) {
 
-    console.log(e.target.textContent)
+    if (letterBoarActived) {
 
-    hint = aClue[wordToBeCompleted]
-    
-    if (hint) {
+        console.log(e.target.textContent)
+
+        hint = aClue[wordToBeCompleted]
         
-        document.querySelector("#hintField").textContent = hint
-
+        if (hint) {
+            
+            document.querySelector("#hintField").textContent = hint
+    
+        }
+        
     }
+
+   
 
 })
 
@@ -328,122 +332,181 @@ function difficulyBehaviour(passAdifficulty, e, i) {
     console.log(passAdifficulty, e, i)
 
     if (e.target.textContent == "") {
+
         console.log(e.target.textContent)
+
         
     } else {
             
         if (wordToBeCompleted.includes(e.target.textContent) && clickedLetters.includes(e.target.textContent) == false) {
+            
             playAsound("right")
+
             document.querySelectorAll(".rightOrWrong")[i].classList.add("green")
 
             clickedLetters.push(e.target.textContent)
+
             document.querySelectorAll(".player-clickable-alphabets")[i].classList.add("disable")
 
 
             rightPlayerInputs = checkPlayerInput(e.target.textContent)
+
             document.querySelector(".fieldInput").textContent = rightPlayerInputs
-            
             
             if (rightPlayerInputs.includes("_") == false) {
 
                 if (passAdifficulty == "Easy") {
-                    for (let i = 0; i < body.length; i++){
-                        document.querySelector(body[i]).textContent = ""
-                    }
-                    lives = 7
-                    hangManBodyIndex = -1
-                    livesToStr = lives.toString()
-                    document.querySelector("#countdown").textContent = livesToStr
 
+                    for (let i = 0; i < body.length; i++){
+
+                        document.querySelector(body[i]).textContent = ""
+
+                    }
+
+                    lives = 7
+
+                    hangManBodyIndex = -1
+                    
+                    livesToStr = lives.toString()
+
+                    document.querySelector("#countdown").textContent = livesToStr
                     
                 }
                 
                 document.querySelector("#hintField").textContent = "Hint Goes Here"
                 
                 categorySelectedIndex++
+
                 if (categorySelectedIndex < catergorySelected.length) {
+
                     wordToBeCompleted = catergorySelected[categorySelectedIndex]
+
                     wordArray = fillsWordArray()
+
                     word_field = fillWordField(wordArray)
+
                     console.log(wordArray)
+
                     document.querySelector(".fieldInput").textContent = word_field
 
                     for (let i = 0; i < document.querySelectorAll(".rightOrWrong").length; i++) {
+
                         if (document.querySelectorAll(".rightOrWrong")[i].classList.contains("red")) {
+
                             document.querySelectorAll(".rightOrWrong")[i].classList.remove("red")
+
                         } else {
+
                             document.querySelectorAll(".rightOrWrong")[i].classList.remove("green")
     
                         }
                     }
 
                     for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").length; i++) {
+
                         document.querySelectorAll(".player-clickable-alphabets")[i].classList.remove("disable")
+
 
                     }
 
                     clickedLetters = []
+
                     document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
 
                 } else {
+
                     document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
 
                     document.querySelector("#hintField").textContent = "You have Completed Every Word Click Reset"
+
                     letterBoarActived = false
                 }
+
             }
             
         }
+
         else if (clickedLetters.includes(e.target.textContent) == false && wordToBeCompleted.includes(e.target.textContent) == false) {
+
             playAsound("wrong")
+
             document.querySelectorAll(".rightOrWrong")[i].classList.add("red")
+
             lives -= 1
+
             hangManBodyIndex += 1
+
             livesToStr = lives.toString()
             
             document.querySelector(body[hangManBodyIndex]).textContent = hangmanSymbols[hangManBodyIndex][body[hangManBodyIndex]]
-
              
             clickedLetters.push(e.target.textContent)
+
             document.querySelectorAll(".player-clickable-alphabets")[i].classList.add("disable")
              
             document.querySelector("#countdown").textContent = livesToStr
+
             if (lives == 0) {
+
                 letterBoarActived = false
+
                 document.querySelector("#hintField").textContent = "You have run out of lives Click Reset To Start Over"
+
             }
 
         }
         
     }
-
     
 }
 
 
 function passDifficultyIndex(num, e) {
+
     difficultySelected = e.target.textContent
+
     difficultyClicked = true
+
     difficultyIndexSelected = num
-    document.querySelector("#header-text").textContent = "The Game Begins Click Reset To Change Difficulty Or Category"
+
+    document.querySelector("#header-text").textContent = "Letter Board Is Now Avtive To Make A Change Click RESET"
+
     if (num == 0) {
+
         document.querySelectorAll(".buttonDifficulty")[num].classList.remove("btn-success")
+
         document.querySelectorAll(".buttonDifficulty")[num].classList.add("btn-outline-success")
+
     }
+
     else {
+
         document.querySelectorAll(".buttonDifficulty")[num].classList.remove("btn-danger")
+
         document.querySelectorAll(".buttonDifficulty")[num].classList.add("btn-outline-danger")
-   }
+
+    }
+    
     document.querySelector(".difficulty").classList.add("disable")
+
     letterBoarActived = true
+
     livesToStr = lives.toString()
+
     document.querySelector("#countdown").textContent = livesToStr
+
     wordArray = fillsWordArray()
+
     word_field = fillWordField(wordArray)
+
     document.querySelector(".fieldInput").textContent = word_field
+
     document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
 
     for (let a = 0; a < body.length; a++){
+
         document.querySelector(body[a]).textContent = ""
+
     }
+
 }
