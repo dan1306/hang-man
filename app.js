@@ -3,21 +3,13 @@ const Countries = ["GHANA", "ROMANIA", "INDIA", "GERMANY", "CANADA"]
 let body = ["#head", "#right-arm", "#left-arm", "#top-body", "#bottom-body", "#right-leg", "#left-leg"]
 
 const hangmanSymbols = [
-
     { "#head": "O" },
-
     { "#right-arm": "/" },
-
     { "#left-arm": `\\` },
-
     { "#top-body": "|" },
-
     { "#bottom-body": "|" },
-
     { "#right-leg": "/" },
-
-    { "#left-leg": "\\" }
-  
+    { "#left-leg": "\\" } 
 ]
 
 const Animals = ["DOG", "CAT", "LION", "ZEBRA", "SHARK"]
@@ -25,44 +17,28 @@ const Animals = ["DOG", "CAT", "LION", "ZEBRA", "SHARK"]
 const Food = ["SALAD", "CHICKEN", "CHEESE", "RICE", "BREAD"]
 
 const aClue = {
-
     "GHANA": "Second-largest producer of gold in Africa.",
-
     "ROMANIA": "It's home to the world's heaviest building.",
-
     "INDIA": "Cows are considered sacred",
-
     "GERMANY": "Has 1,000 Varieties of Sausages!",
-
     "CANADA": "Has 20% of the world's fresh water.",
-
-    "DOG": 'a',
-
-    "CAT": "b",
-
-    "LION": "c",
-
-    "ZEBRA": "d",
-
-    "SHARK": "e",
-
-    "SALAD": "f",
-
-    "CHEESE": "g",
-
-    "Cheese": "h",
-
-    "RICE": "i",
-
-    "BREAD": "j"
-
+    "DOG": 'Have 18 muscles to move their ears.',
+    "CAT": "Has 9 lives.",
+    "LION": "Hunts in storms.",
+    "ZEBRA": "Can run up to 65km per/hr.",
+    "SHARK": "Do not have bones.",
+    "SALAD": "Combination of vegies with hard bread and ceaser dressing.",
+    "CHEESE": "Over 2000 varieties",
+    "CHCIKEN":"Able to distinguish colours.",
+    "RICE": "Good for years.",
+    "BREAD": "99% of UK household buy it."
 }
 
 let categoryClicked = false
 
 let difficultyClicked = false
 
-let letterBoardActive = false
+let letterBoardActived = false
 
 let categorySelectedIndex = 0
 
@@ -92,15 +68,11 @@ let rightPlayerInputs
 
 let hint
 
-
-
 for (let i = 0; i < document.querySelectorAll(".buttonCategory").length; i++){
 
     document.querySelectorAll(".buttonCategory")[i].addEventListener("click", function (e) {
 
         if (!categoryClicked && !difficultyClicked) {
-
-            console.log(e.target.textContent)
 
             if (e.target.textContent == "Countries") {
 
@@ -151,7 +123,6 @@ for (let i = 0; i < document.querySelectorAll(".buttonDifficulty").length; i++) 
 
 for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").length; i++){
 
-    
     document.querySelectorAll(".player-clickable-alphabets")[i].addEventListener("click", function (e) {
 
         if (letterBoarActived) {
@@ -168,24 +139,20 @@ document.querySelector(".Hint-button").addEventListener("click", function (e) {
 
     if (letterBoarActived) {
 
-        console.log(e.target.textContent)
-
         hint = aClue[wordToBeCompleted]
-        
+            
         if (hint) {
             
             document.querySelector("#hintField").textContent = hint
-    
+
         }
         
     }
 
-   
-
 })
 
 
-document.querySelector(".reest").addEventListener("click", function (e) {
+document.querySelector(".reset").addEventListener("click", function (e) {
 
     reset()
 
@@ -220,8 +187,6 @@ function fillWordField(arr) {
 
 function checkPlayerInput(letterPassed) {
    
-    console.log(letterPassed)
-
     for (let i = 0; i < wordToBeCompleted.length; i++){
 
         if (letterPassed == wordToBeCompleted[i]) {
@@ -329,12 +294,7 @@ function playAsound(rightOrWrong) {
 
 function difficulyBehaviour(passAdifficulty, e, i) {
 
-    console.log(passAdifficulty, e, i)
-
     if (e.target.textContent == "") {
-
-        console.log(e.target.textContent)
-
         
     } else {
             
@@ -406,7 +366,6 @@ function difficulyBehaviour(passAdifficulty, e, i) {
 
                         document.querySelectorAll(".player-clickable-alphabets")[i].classList.remove("disable")
 
-
                     }
 
                     clickedLetters = []
@@ -450,7 +409,7 @@ function difficulyBehaviour(passAdifficulty, e, i) {
 
                 letterBoarActived = false
 
-                document.querySelector("#hintField").textContent = "You have run out of lives Click Reset To Start Over"
+                document.querySelector("#hintField").textContent = "You Have Run Out Of Lives Click Reset To Start Over"
 
             }
 
@@ -459,7 +418,6 @@ function difficulyBehaviour(passAdifficulty, e, i) {
     }
     
 }
-
 
 function passDifficultyIndex(num, e) {
 
