@@ -1,470 +1,455 @@
-const Countries = ["GHANA", "ROMANIA", "INDIA", "GERMANY", "CANADA"]
+const Countries = ["GHANA", "ROMANIA", "INDIA", "GERMANY", "CANADA"];
 
-let body = ["#head", "#right-arm", "#left-arm", "#top-body", "#bottom-body", "#right-leg", "#left-leg"]
+let body = [
+  "#head",
+  "#right-arm",
+  "#left-arm",
+  "#top-body",
+  "#bottom-body",
+  "#right-leg",
+  "#left-leg",
+];
 
 const hangmanSymbols = [
-    { "#head": "O" },
-    { "#right-arm": "/" },
-    { "#left-arm": `\\` },
-    { "#top-body": "|" },
-    { "#bottom-body": "|" },
-    { "#right-leg": "/" },
-    { "#left-leg": "\\" } 
-]
+  { "#head": "O" },
+  { "#right-arm": "/" },
+  { "#left-arm": `\\` },
+  { "#top-body": "|" },
+  { "#bottom-body": "|" },
+  { "#right-leg": "/" },
+  { "#left-leg": "\\" },
+];
 
-const Animals = ["DOG", "CAT", "LION", "ZEBRA", "SHARK"]
+const Animals = ["DOG", "CAT", "LION", "ZEBRA", "SHARK"];
 
-const Food = ["SALAD", "CHICKEN", "CHEESE", "RICE", "BREAD"]
+const Food = ["SALAD", "CHICKEN", "CHEESE", "RICE", "BREAD"];
 
 const aClue = {
-    "GHANA": "Second-largest producer of gold in Africa.",
-    "ROMANIA": "It's home to the world's heaviest building.",
-    "INDIA": "Cows are considered sacred",
-    "GERMANY": "Has 1,000 Varieties of Sausages!",
-    "CANADA": "Has 20% of the world's fresh water.",
-    "DOG": 'Have 18 muscles to move their ears.',
-    "CAT": "Has 9 lives.",
-    "LION": "Hunts in storms.",
-    "ZEBRA": "Can run up to 65km per/hr.",
-    "SHARK": "Do not have bones.",
-    "SALAD": "Combination of vegies with hard bread and ceaser dressing.",
-    "CHEESE": "Over 2000 varieties",
-    "CHCIKEN":"Able to distinguish colours.",
-    "RICE": "Good for years.",
-    "BREAD": "99% of UK household buy it."
-}
+  GHANA: "Second-largest producer of gold in Africa.",
+  ROMANIA: "It's home to the world's heaviest building.",
+  INDIA: "Cows are considered sacred",
+  GERMANY: "Has 1,000 Varieties of Sausages!",
+  CANADA: "Has 20% of the world's fresh water.",
+  DOG: "Have 18 muscles to move their ears.",
+  CAT: "Has 9 lives.",
+  LION: "Hunts in storms.",
+  ZEBRA: "Can run up to 65km per/hr.",
+  SHARK: "Do not have bones.",
+  SALAD: "Combination of vegies with hard bread and ceaser dressing.",
+  CHEESE: "Over 2000 varieties",
+  CHCIKEN: "Able to distinguish colours.",
+  RICE: "Good for years.",
+  BREAD: "99% of UK household buy it.",
+};
 
-let categoryClicked = false
+let categoryClicked = false;
 
-let difficultyClicked = false
+let difficultyClicked = false;
 
-let letterBoardActived = false
+let letterBoardActived = false;
 
-let categorySelectedIndex = 0
+let categorySelectedIndex = 0;
 
-let lives = 7
+let lives = 7;
 
-let hangManBodyIndex = -1
+let hangManBodyIndex = -1;
 
-let livesToStr = lives.toString()
+let livesToStr = lives.toString();
 
-let clickedLetters = []
+let clickedLetters = [];
 
-let catergorySelected
+let catergorySelected;
 
-let catergoryIndexSelected
+let catergoryIndexSelected;
 
-let difficultySelected
+let difficultySelected;
 
-let difficultyIndexSelected
+let difficultyIndexSelected;
 
-let wordToBeCompleted 
+let wordToBeCompleted;
 
-let wordArray 
+let wordArray;
 
-let word_field
+let word_field;
 
-let rightPlayerInputs
+let rightPlayerInputs;
 
-let hint
+let hint;
 
-for (let i = 0; i < document.querySelectorAll(".buttonCategory").length; i++){
-
-    document.querySelectorAll(".buttonCategory")[i].addEventListener("click", function (e) {
-
-        if (!categoryClicked && !difficultyClicked) {
-
-            if (e.target.textContent == "Countries") {
-
-                catergorySelected = Countries
-
-            } else if (e.target.textContent == "Animals") {
-
-                catergorySelected = Animals
-
-            } else {
-
-                catergorySelected = Food
-
-            }
-
-            categoryClicked = true
-
-            catergoryIndexSelected = i
-
-            document.querySelector("#header-text").textContent = "Select Difficulty"
-
-            document.querySelectorAll(".buttonCategory")[i].classList.remove("btn-warning")
-
-            document.querySelectorAll(".buttonCategory")[i].classList.add("btn-outline-warning")
-
-            document.querySelector(".categories").classList.add("disable")
-
-            wordToBeCompleted = catergorySelected[categorySelectedIndex]
-        }
-      
-    })
-
-}
-
-for (let i = 0; i < document.querySelectorAll(".buttonDifficulty").length; i++) {
-
-    document.querySelectorAll(".buttonDifficulty")[i].addEventListener("click", function (e) {   
-        
-        if (categoryClicked && !difficultyClicked) {
-
-            passDifficultyIndex(i, e)
-                   
+for (let i = 0; i < document.querySelectorAll(".buttonCategory").length; i++) {
+  document
+    .querySelectorAll(".buttonCategory")
+    [i].addEventListener("click", function (e) {
+      if (!categoryClicked && !difficultyClicked) {
+        if (e.target.textContent == "Countries") {
+          catergorySelected = Countries;
+        } else if (e.target.textContent == "Animals") {
+          catergorySelected = Animals;
+        } else {
+          catergorySelected = Food;
         }
 
-    })
-         
+        categoryClicked = true;
+
+        catergoryIndexSelected = i;
+
+        document.querySelector("#header-text").textContent =
+          "Select Difficulty";
+
+        document
+          .querySelectorAll(".buttonCategory")
+          [i].classList.remove("btn-warning");
+
+        document
+          .querySelectorAll(".buttonCategory")
+          [i].classList.add("btn-outline-warning");
+
+        document.querySelector(".categories").classList.add("disable");
+
+        wordToBeCompleted = catergorySelected[categorySelectedIndex];
+      }
+    });
 }
 
-for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").length; i++){
+for (
+  let i = 0;
+  i < document.querySelectorAll(".buttonDifficulty").length;
+  i++
+) {
+  document
+    .querySelectorAll(".buttonDifficulty")
+    [i].addEventListener("click", function (e) {
+      if (categoryClicked && !difficultyClicked) {
+        passDifficultyIndex(i, e);
+      }
+    });
+}
 
-    document.querySelectorAll(".player-clickable-alphabets")[i].addEventListener("click", function (e) {
-
-        if (letterBoarActived) {
-
-            difficulyBehaviour(difficultySelected, e, i)
-
-        }
-
-    })
-
+for (
+  let i = 0;
+  i < document.querySelectorAll(".player-clickable-alphabets").length;
+  i++
+) {
+  document
+    .querySelectorAll(".player-clickable-alphabets")
+    [i].addEventListener("click", function (e) {
+      if (letterBoarActived) {
+        difficulyBehaviour(difficultySelected, e, i);
+      }
+    });
 }
 
 document.querySelector(".Hint-button").addEventListener("click", function (e) {
+  if (letterBoarActived) {
+    hint = aClue[wordToBeCompleted];
 
-    if (letterBoarActived) {
-
-        hint = aClue[wordToBeCompleted]
-            
-        if (hint) {
-            
-            document.querySelector("#hintField").textContent = hint
-
-        }
-        
+    if (hint) {
+      document.querySelector("#hintField").textContent = hint;
     }
-
-})
-
+  }
+});
 
 document.querySelector(".reset").addEventListener("click", function (e) {
-
-    reset()
-
-})
+  reset();
+});
 
 function fillsWordArray() {
+  let arr = [];
 
-    let arr = []
-    
-    for (let i = 0; i < wordToBeCompleted.length; i++){
+  for (let i = 0; i < wordToBeCompleted.length; i++) {
+    arr.push("_ ");
+  }
 
-        arr.push("_ ")
-
-    }
-
-    return arr
+  return arr;
 }
 
 function fillWordField(arr) {
+  let dashes = "";
 
-    let dashes = ""
+  for (let i = 0; i < arr.length; i++) {
+    dashes += arr[i];
+  }
 
-    for (let i = 0; i < arr.length; i++){
-
-        dashes += arr[i]
-
-    }
-
-    return dashes
-    
+  return dashes;
 }
 
 function checkPlayerInput(letterPassed) {
-   
-    for (let i = 0; i < wordToBeCompleted.length; i++){
-
-        if (letterPassed == wordToBeCompleted[i]) {
-
-            wordArray[i] = letterPassed
-
-        }
-
+  for (let i = 0; i < wordToBeCompleted.length; i++) {
+    if (letterPassed == wordToBeCompleted[i]) {
+      wordArray[i] = letterPassed;
     }
+  }
 
-    let dashOrLetter = ""
-    
-    for (let i = 0; i < wordArray.length; i++){
+  let dashOrLetter = "";
 
-        dashOrLetter += wordArray[i] + " "
+  for (let i = 0; i < wordArray.length; i++) {
+    dashOrLetter += wordArray[i] + " ";
+  }
 
-    }
-    
-    return dashOrLetter
-
+  return dashOrLetter;
 }
 
 function reset() {
+  categoryClicked = false;
 
-    categoryClicked = false
+  difficultyClicked = false;
 
-    difficultyClicked = false
+  letterBoarActived = false;
 
-    letterBoarActived = false
+  if (difficultyIndexSelected == 0) {
+    document
+      .querySelectorAll(".buttonDifficulty")
+      [difficultyIndexSelected].classList.add("btn-success");
 
-    if (difficultyIndexSelected == 0) {
+    document
+      .querySelectorAll(".buttonDifficulty")
+      [difficultyIndexSelected].classList.remove("btn-outline-success");
+  } else {
+    document
+      .querySelectorAll(".buttonDifficulty")
+      [difficultyIndexSelected].classList.add("btn-danger");
 
-        document.querySelectorAll(".buttonDifficulty")[difficultyIndexSelected].classList.add("btn-success")
+    document
+      .querySelectorAll(".buttonDifficulty")
+      [difficultyIndexSelected].classList.remove("btn-outline-danger");
+  }
 
-        document.querySelectorAll(".buttonDifficulty")[difficultyIndexSelected].classList.remove("btn-outline-success")  
+  document.querySelector("#header-text").textContent = "Select A category";
+
+  document
+    .querySelectorAll(".buttonCategory")
+    [catergoryIndexSelected].classList.add("btn-warning");
+
+  document
+    .querySelectorAll(".buttonCategory")
+    [catergoryIndexSelected].classList.remove("btn-outline-warning");
+
+  document.querySelector(".categories").classList.remove("disable");
+
+  document.querySelector(".difficulty").classList.remove("disable");
+
+  clickedLetters = [];
+
+  document.querySelector("#hintField").textContent = "Hint Goes Here";
+
+  for (let i = 0; i < document.querySelectorAll(".rightOrWrong").length; i++) {
+    if (
+      document.querySelectorAll(".rightOrWrong")[i].classList.contains("red")
+    ) {
+      document.querySelectorAll(".rightOrWrong")[i].classList.remove("red");
+    } else {
+      document.querySelectorAll(".rightOrWrong")[i].classList.remove("green");
     }
-    
-    else {
+  }
 
-        document.querySelectorAll(".buttonDifficulty")[difficultyIndexSelected].classList.add("btn-danger")
+  for (
+    let i = 0;
+    i < document.querySelectorAll(".player-clickable-alphabets").length;
+    i++
+  ) {
+    document
+      .querySelectorAll(".player-clickable-alphabets")
+      [i].classList.remove("disable");
+  }
 
-        document.querySelectorAll(".buttonDifficulty")[difficultyIndexSelected].classList.remove("btn-outline-danger")
+  categorySelectedIndex = 0;
 
-    }
+  document.querySelector(".progression").innerHTML = `<h1>0/0</h1>`;
 
-    document.querySelector("#header-text").textContent = "Select A category"
+  document.querySelector(".fieldInput").textContent = "_ _ _ _ _ _ _";
 
-    document.querySelectorAll(".buttonCategory")[catergoryIndexSelected].classList.add("btn-warning")
+  lives = 7;
 
-    document.querySelectorAll(".buttonCategory")[catergoryIndexSelected].classList.remove("btn-outline-warning")
+  livesToStr = lives.toString();
 
-    document.querySelector(".categories").classList.remove("disable")
+  document.querySelector("#countdown").textContent = livesToStr;
 
-    document.querySelector(".difficulty").classList.remove("disable")
-
-    clickedLetters = []
-
-    document.querySelector("#hintField").textContent = "Hint Goes Here"
-
-    for (let i = 0; i < document.querySelectorAll(".rightOrWrong").length; i++){
-
-        if (document.querySelectorAll(".rightOrWrong")[i].classList.contains("red")) {
-
-            document.querySelectorAll(".rightOrWrong")[i].classList.remove("red")
-
-        }
-        else {
-
-            document.querySelectorAll(".rightOrWrong")[i].classList.remove("green")
-
-        }
-    }
-
-    for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").length; i++){
-
-        document.querySelectorAll(".player-clickable-alphabets")[i].classList.remove("disable")
-
-    }
-
-    categorySelectedIndex = 0
-
-    document.querySelector(".progression").innerHTML = `<h1>0/0</h1>`
-    
-    document.querySelector(".fieldInput").textContent = "_ _ _ _ _ _ _"
-
-    lives = 7
-
-    livesToStr = lives.toString()
-
-    document.querySelector("#countdown").textContent = livesToStr
-
-    hangManBodyIndex = -1
-
-
+  hangManBodyIndex = -1;
 }
 
 function playAsound(rightOrWrong) {
+  var audio = new Audio("./Sound-Effects/" + rightOrWrong + ".wav");
 
-    var audio = new Audio("./Sound-Effects/" + rightOrWrong + ".wav");
-
-    audio.play();
-    
+  audio.play();
 }
 
-
 function difficulyBehaviour(passAdifficulty, e, i) {
+  if (e.target.textContent == "") {
+  } else {
+    if (
+      wordToBeCompleted.includes(e.target.textContent) &&
+      clickedLetters.includes(e.target.textContent) == false
+    ) {
+      playAsound("right");
 
-    if (e.target.textContent == "") {
-        
-    } else {
-            
-        if (wordToBeCompleted.includes(e.target.textContent) && clickedLetters.includes(e.target.textContent) == false) {
-            
-            playAsound("right")
+      document.querySelectorAll(".rightOrWrong")[i].classList.add("green");
 
-            document.querySelectorAll(".rightOrWrong")[i].classList.add("green")
+      clickedLetters.push(e.target.textContent);
 
-            clickedLetters.push(e.target.textContent)
+      document
+        .querySelectorAll(".player-clickable-alphabets")
+        [i].classList.add("disable");
 
-            document.querySelectorAll(".player-clickable-alphabets")[i].classList.add("disable")
+      rightPlayerInputs = checkPlayerInput(e.target.textContent);
 
+      document.querySelector(".fieldInput").textContent = rightPlayerInputs;
 
-            rightPlayerInputs = checkPlayerInput(e.target.textContent)
+      if (rightPlayerInputs.includes("_") == false) {
+        if (passAdifficulty == "Easy") {
+          for (let i = 0; i < body.length; i++) {
+            document.querySelector(body[i]).textContent = "";
+          }
 
-            document.querySelector(".fieldInput").textContent = rightPlayerInputs
-            
-            if (rightPlayerInputs.includes("_") == false) {
+          lives = 7;
 
-                if (passAdifficulty == "Easy") {
+          hangManBodyIndex = -1;
 
-                    for (let i = 0; i < body.length; i++){
+          livesToStr = lives.toString();
 
-                        document.querySelector(body[i]).textContent = ""
-
-                    }
-
-                    lives = 7
-
-                    hangManBodyIndex = -1
-                    
-                    livesToStr = lives.toString()
-
-                    document.querySelector("#countdown").textContent = livesToStr
-                    
-                }
-                
-                document.querySelector("#hintField").textContent = "Hint Goes Here"
-                
-                categorySelectedIndex++
-
-                if (categorySelectedIndex < catergorySelected.length) {
-
-                    wordToBeCompleted = catergorySelected[categorySelectedIndex]
-
-                    wordArray = fillsWordArray()
-
-                    word_field = fillWordField(wordArray)
-
-                    console.log(wordArray)
-
-                    document.querySelector(".fieldInput").textContent = word_field
-
-                    for (let i = 0; i < document.querySelectorAll(".rightOrWrong").length; i++) {
-
-                        if (document.querySelectorAll(".rightOrWrong")[i].classList.contains("red")) {
-
-                            document.querySelectorAll(".rightOrWrong")[i].classList.remove("red")
-
-                        } else {
-
-                            document.querySelectorAll(".rightOrWrong")[i].classList.remove("green")
-    
-                        }
-                    }
-
-                    for (let i = 0; i < document.querySelectorAll(".player-clickable-alphabets").length; i++) {
-
-                        document.querySelectorAll(".player-clickable-alphabets")[i].classList.remove("disable")
-
-                    }
-
-                    clickedLetters = []
-
-                    document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
-
-                } else {
-
-                    document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
-
-                    document.querySelector("#hintField").textContent = "You have Completed Every Word Click Reset"
-
-                    letterBoarActived = false
-                }
-
-            }
-            
+          document.querySelector("#countdown").textContent = livesToStr;
         }
 
-        else if (clickedLetters.includes(e.target.textContent) == false && wordToBeCompleted.includes(e.target.textContent) == false) {
+        document.querySelector("#hintField").textContent = "Hint Goes Here";
 
-            playAsound("wrong")
+        categorySelectedIndex++;
 
-            document.querySelectorAll(".rightOrWrong")[i].classList.add("red")
+        if (categorySelectedIndex < catergorySelected.length) {
+          wordToBeCompleted = catergorySelected[categorySelectedIndex];
 
-            lives -= 1
+          wordArray = fillsWordArray();
 
-            hangManBodyIndex += 1
+          word_field = fillWordField(wordArray);
 
-            livesToStr = lives.toString()
-            
-            document.querySelector(body[hangManBodyIndex]).textContent = hangmanSymbols[hangManBodyIndex][body[hangManBodyIndex]]
-             
-            clickedLetters.push(e.target.textContent)
+          document.querySelector(".fieldInput").textContent = word_field;
 
-            document.querySelectorAll(".player-clickable-alphabets")[i].classList.add("disable")
-             
-            document.querySelector("#countdown").textContent = livesToStr
-
-            if (lives == 0) {
-
-                letterBoarActived = false
-
-                document.querySelector("#hintField").textContent = "You Have Run Out Of Lives Click Reset To Start Over"
-
+          for (
+            let i = 0;
+            i < document.querySelectorAll(".rightOrWrong").length;
+            i++
+          ) {
+            if (
+              document
+                .querySelectorAll(".rightOrWrong")
+                [i].classList.contains("red")
+            ) {
+              document
+                .querySelectorAll(".rightOrWrong")
+                [i].classList.remove("red");
+            } else {
+              document
+                .querySelectorAll(".rightOrWrong")
+                [i].classList.remove("green");
             }
+          }
 
+          for (
+            let i = 0;
+            i < document.querySelectorAll(".player-clickable-alphabets").length;
+            i++
+          ) {
+            document
+              .querySelectorAll(".player-clickable-alphabets")
+              [i].classList.remove("disable");
+          }
+
+          clickedLetters = [];
+
+          document.querySelector(
+            ".progression"
+          ).innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`;
+        } else {
+          document.querySelector(
+            ".progression"
+          ).innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`;
+
+          document.querySelector("#hintField").textContent =
+            "You have Completed Every Word Click Reset";
+
+          letterBoarActived = false;
         }
-        
+      }
+    } else if (
+      clickedLetters.includes(e.target.textContent) == false &&
+      wordToBeCompleted.includes(e.target.textContent) == false
+    ) {
+      playAsound("wrong");
+
+      document.querySelectorAll(".rightOrWrong")[i].classList.add("red");
+
+      lives -= 1;
+
+      hangManBodyIndex += 1;
+
+      livesToStr = lives.toString();
+
+      document.querySelector(body[hangManBodyIndex]).textContent =
+        hangmanSymbols[hangManBodyIndex][body[hangManBodyIndex]];
+
+      clickedLetters.push(e.target.textContent);
+
+      document
+        .querySelectorAll(".player-clickable-alphabets")
+        [i].classList.add("disable");
+
+      document.querySelector("#countdown").textContent = livesToStr;
+
+      if (lives == 0) {
+        letterBoarActived = false;
+
+        document.querySelector("#hintField").textContent =
+          "You Have Run Out Of Lives Click Reset To Start Over";
+      }
     }
-    
+  }
 }
 
 function passDifficultyIndex(num, e) {
+  difficultySelected = e.target.textContent;
 
-    difficultySelected = e.target.textContent
+  difficultyClicked = true;
 
-    difficultyClicked = true
+  difficultyIndexSelected = num;
 
-    difficultyIndexSelected = num
+  document.querySelector("#header-text").textContent =
+    "Letter Board Is Now Avtive To Make A Change Click RESET";
 
-    document.querySelector("#header-text").textContent = "Letter Board Is Now Avtive To Make A Change Click RESET"
+  if (num == 0) {
+    document
+      .querySelectorAll(".buttonDifficulty")
+      [num].classList.remove("btn-success");
 
-    if (num == 0) {
+    document
+      .querySelectorAll(".buttonDifficulty")
+      [num].classList.add("btn-outline-success");
+  } else {
+    document
+      .querySelectorAll(".buttonDifficulty")
+      [num].classList.remove("btn-danger");
 
-        document.querySelectorAll(".buttonDifficulty")[num].classList.remove("btn-success")
+    document
+      .querySelectorAll(".buttonDifficulty")
+      [num].classList.add("btn-outline-danger");
+  }
 
-        document.querySelectorAll(".buttonDifficulty")[num].classList.add("btn-outline-success")
+  document.querySelector(".difficulty").classList.add("disable");
 
-    }
+  letterBoarActived = true;
 
-    else {
+  livesToStr = lives.toString();
 
-        document.querySelectorAll(".buttonDifficulty")[num].classList.remove("btn-danger")
+  document.querySelector("#countdown").textContent = livesToStr;
 
-        document.querySelectorAll(".buttonDifficulty")[num].classList.add("btn-outline-danger")
+  wordArray = fillsWordArray();
 
-    }
-    
-    document.querySelector(".difficulty").classList.add("disable")
+  word_field = fillWordField(wordArray);
 
-    letterBoarActived = true
+  document.querySelector(".fieldInput").textContent = word_field;
 
-    livesToStr = lives.toString()
+  document.querySelector(
+    ".progression"
+  ).innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`;
 
-    document.querySelector("#countdown").textContent = livesToStr
-
-    wordArray = fillsWordArray()
-
-    word_field = fillWordField(wordArray)
-
-    document.querySelector(".fieldInput").textContent = word_field
-
-    document.querySelector(".progression").innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`
-
-    for (let a = 0; a < body.length; a++){
-
-        document.querySelector(body[a]).textContent = ""
-
-    }
-
+  for (let a = 0; a < body.length; a++) {
+    document.querySelector(body[a]).textContent = "";
+  }
 }
