@@ -25,21 +25,21 @@ const Animals = ["DOG", "CAT", "LION", "ZEBRA", "SHARK"];
 const Food = ["SALAD", "CHICKEN", "CHEESE", "RICE", "BREAD"];
 
 const aClue = {
-  GHANA: "Second-largest producer of gold in Africa.",
-  ROMANIA: "It's home to the world's heaviest building.",
-  INDIA: "Cows are considered sacred",
-  GERMANY: "Has 1,000 Varieties of Sausages!",
-  CANADA: "Has 20% of the world's fresh water.",
-  DOG: "Have 18 muscles to move their ears.",
-  CAT: "Has 9 lives.",
-  LION: "Hunts in storms.",
-  ZEBRA: "Can run up to 65km per/hr.",
-  SHARK: "Do not have bones.",
-  SALAD: "Combination of vegies with hard bread and ceaser dressing.",
-  CHEESE: "Over 2000 varieties",
-  CHCIKEN: "Able to distinguish colours.",
-  RICE: "Good for years.",
-  BREAD: "99% of UK household buy it.",
+  "GHANA": "Second-largest producer of gold in Africa.",
+  "ROMANIA": "It's home to the world's heaviest building.",
+  "INDIA": "Cows are considered sacred",
+  "GERMANY": "Has 1,000 Varieties of Sausages!",
+  "CANADA": "Has 20% of the world's fresh water.",
+  "DOG": "Have 18 muscles to move their ears.",
+  "CAT": "Has 9 lives.",
+  "LION": "Hunts in storms.",
+  "ZEBRA": "Can run up to 65km per/hr.",
+  "SHARK": "Do not have bones.",
+  "SALAD": "Combination of vegies with hard bread and ceaser dressing.",
+  "CHEESE": "Over 2000 varieties",
+  "CHCIKEN": "Able to distinguish colours.",
+  "RICE": "Good for years.",
+  "BREAD": "99% of UK household buy it.",
 };
 
 let categoryClicked = false;
