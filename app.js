@@ -150,7 +150,9 @@ document.querySelector(".Hint-button").addEventListener("click", function (e) {
 });
 
 document.querySelector(".reset").addEventListener("click", function (e) {
-  reset();
+    if (categoryClicked && difficultyClicked) {
+        reset();
+    }
 });
 
 function fillsWordArray() {
@@ -214,7 +216,7 @@ function reset() {
       [difficultyIndexSelected].classList.remove("btn-outline-danger");
   }
 
-  document.querySelector("#header-text").textContent = "Select A category";
+  document.querySelector("#header-text").textContent = "Select A Category";
 
   document
     .querySelectorAll(".buttonCategory")
