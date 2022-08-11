@@ -36,8 +36,8 @@ const aClue = {
   "ZEBRA": "Can run up to 65km per/hr.",
   "SHARK": "Do not have bones.",
   "SALAD": "Combination of vegies with hard bread and ceaser dressing.",
-  "CHEESE": "Over 2000 varieties",
   "CHICKEN": "Able to distinguish colours.",
+  "CHEESE": "Over 2000 varieties",
   "RICE": "Good for years.",
   "BREAD": "99% of UK household buy it.",
 };
@@ -363,7 +363,7 @@ function difficulyBehaviour(passAdifficulty, e, i) {
           ).innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`;
 
           document.querySelector("#hintField").textContent =
-            "You have Completed Every Word Click Reset";
+            "You have Completed Every Word Click RESET";
 
           letterBoarActived = false;
         }
@@ -397,7 +397,7 @@ function difficulyBehaviour(passAdifficulty, e, i) {
         letterBoarActived = false;
 
         document.querySelector("#hintField").textContent =
-          "You Have Run Out Of Lives Click Reset To Start Over";
+          "You Have Run Out Of Lives Click RESET To Start Over";
       }
     }
   }
@@ -411,7 +411,7 @@ function passDifficultyIndex(num, e) {
   difficultyIndexSelected = num;
 
   document.querySelector("#header-text").textContent =
-    "Letter Board Is Now Avtive To Make A Change Click RESET";
+    "Letter Board Is Now Active To Make A Change Click RESET";
 
   if (num == 0) {
     document
