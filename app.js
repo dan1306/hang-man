@@ -26,17 +26,17 @@ const Food = ["SALAD", "CHICKEN", "CHEESE", "RICE", "BREAD"];
 
 const aClue = {
   "GHANA": "Second-largest producer of gold in Africa.",
-  "ROMANIA": "It's home to the world's heaviest building.",
+  "ROMANIA": "Holds the world's heaviest building.",
   "INDIA": "Cows are considered sacred",
   "GERMANY": "Has 1,000 Varieties of Sausages!",
   "CANADA": "Has 20% of the world's fresh water.",
-  "DOG": "Have 18 muscles to move their ears.",
+  "DOG": "Has 18 muscles to move their ears.",
   "CAT": "Has 9 lives.",
   "LION": "Hunts in storms.",
   "ZEBRA": "Can run up to 65km per/hr.",
   "SHARK": "Do not have bones.",
   "SALAD": "Combination of vegies with hard bread and ceaser dressing.",
-  "CHICKEN": "Able to distinguish colours.",
+  "CHICKEN": "Kentucky's most popular fried dish.",
   "CHEESE": "Over 2000 varieties",
   "RICE": "Good for years.",
   "BREAD": "99% of UK household buy it.",
@@ -365,7 +365,7 @@ function difficulyBehaviour(passAdifficulty, e, i) {
           ).innerHTML = `<h1>${categorySelectedIndex.toString()}/${catergorySelected.length.toString()}</h1>`;
 
           document.querySelector("#hintField").textContent =
-            "You have Completed Every Word Click RESET";
+            "You Have Completed Every Word Click RESET";
 
           letterBoarActived = false;
         }
