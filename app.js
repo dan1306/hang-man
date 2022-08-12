@@ -1,6 +1,4 @@
-const Countries = ["GHANA", "ROMANIA", "INDIA"];
-
-// , "GERMANY", "CANADA"
+const Countries = ["GHANA", "ROMANIA", "INDIA", "GERMANY", "CANADA"];
 
 let body = [
   "#head",
@@ -22,13 +20,9 @@ const hangmanSymbols = [
   { "#left-leg": "\\" },
 ];
 
-const Animals = ["DOG", "CAT", "LION"];
+const Animals = ["DOG", "CAT", "LION", "ZEBRA", "SHARK"];
 
-// , "ZEBRA", "SHARK"
-
-const Food = ["SALAD", "CHICKEN", "CHEESE"];
-
-// , "RICE", "BREAD"
+const Food = ["SALAD", "CHICKEN", "CHEESE", "RICE", "BREAD"];
 
 const aClue = {
   "GHANA": "Second-largest producer of gold in Africa.",
